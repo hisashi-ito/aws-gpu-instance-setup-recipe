@@ -180,7 +180,7 @@ dockerでgpuをつかめるようにする
    ```
     
   * docker-compose.yamlで以下のように記述  
-    `NVIDIA_DISABLE_REQUIRE=true`を指定するとマイナーバージョンで動作しない場合でも動作するようになる。  
+    環境変数で以下を追加。またtipsとして`NVIDIA_DISABLE_REQUIRE=true`を指定するとマイナーバージョンで動作しない場合でも動作するようになる。  
     ```docker
      environment:
        - NVIDIA_VISIBLE_DEVICES=all
