@@ -148,3 +148,42 @@ dockerでgpuをつかめるようにする
   $ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
   $ sudo systemctl restart docker
   ```
+
+* Docker Compse
+  ```bash
+  # https://docs.docker.com/compose/install/
+  $ sudo curl -L "https://github.com/docker/compose/releases/download/1.28.6/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  $ sudo chmod +x /usr/local/bin/docker-compose
+  $ sudo  /usr/local/bin/docker-compose --version
+  docker-compose version 1.28.6, build 5db8d86f
+  ```
+
+* Docker-composeでgpuを利用したい場合の設定
+
+  * nvidia-container-runtimeのインストール  
+
+  ```bash
+  $ sudo apt install nvidia-container-runtime
+  ```
+  
+ * /etc/docker/daemon.json の修正
+   ```json
+   {
+       "default-runtime": "nvidia",
+       "runtimes": {
+           "nvidia": {
+               "path": "nvidia-container-runtime",
+              "runtimeArgs": []
+           }
+       }
+   }
+   ```
+    
+  * docker-compose.yamlで以下のように記述  
+    `NVIDIA_DISABLE_REQUIRE=true`を指定するとマイナーバージョンで動作しない場合でも動作するようになる。  
+    ```docker
+     environment:
+       - NVIDIA_VISIBLE_DEVICES=all
+       - NVIDIA_DRIVER_CAPABILITIES=all
+       - NVIDIA_DISABLE_REQUIRE=true
+    ```
