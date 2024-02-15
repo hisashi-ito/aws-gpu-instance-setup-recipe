@@ -1,2 +1,2 @@
-# aws-gpu-instance-setup-recipe
-AWS GPU instance setup recipe
+# AWS GPU Instance Setup Recipe
+* G5 instance
